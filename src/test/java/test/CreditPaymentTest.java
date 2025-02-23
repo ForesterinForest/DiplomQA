@@ -43,14 +43,10 @@ public class CreditPaymentTest {
         PurchaseOnCredit purchaseOnCredit = dashboardPage.openCreditPage();
         Card approvedCard = DataHelper.getApprovedCardNowa();
         purchaseOnCredit.enterCardDetails(approvedCard);
+        purchaseOnCredit.waitNotificationApproved();
         String actualStatus = SQLHelper.getLatestCreditStatus();
         String expectedStatus = "APPROVED";
-        assertAll(
-                () -> assertDoesNotThrow(purchaseOnCredit::waitNotificationApproved),
-                () -> {
-                    assertEquals(expectedStatus, actualStatus, "APPROVED");
-                });
-
+        assertEquals(expectedStatus, actualStatus, "APPROVED");
 
     }
 
@@ -62,15 +58,10 @@ public class CreditPaymentTest {
         PurchaseOnCredit purchaseOnCredit = dashboardPage.openCreditPage();
         Card declinedCard = DataHelper.getDeclinedCard();
         purchaseOnCredit.enterCardDetails(declinedCard);
+        purchaseOnCredit.waitNotificationFailure();
         String actualStatus = SQLHelper.getLatestCreditStatus();
         String expectedStatus = "DECLINED";
-        assertAll(
-                () -> assertDoesNotThrow(purchaseOnCredit::waitNotificationFailure),
-                () -> {
-                    assertEquals(expectedStatus, actualStatus, "DECLINED");
-                });
-
-
+        assertEquals(expectedStatus, actualStatus, "DECLINED");
     }
 
     @Test

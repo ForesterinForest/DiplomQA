@@ -40,13 +40,10 @@ public class PaymentTest {
         PaymentByCard paymentByCard = dashboardPage.openBuyPage();
         Card approvedCard = DataHelper.getApprovedCardNowa();
         paymentByCard.inputData(approvedCard);
+        paymentByCard.waitNotificationApproved();
         String actualStatus = SQLHelper.getLatestPaymentStatus();
         String expectedStatus = "APPROVED";// Ожидаемый статус
-        assertAll(
-                () -> assertDoesNotThrow(paymentByCard::waitNotificationApproved),
-                () -> {
-                    assertEquals(expectedStatus, actualStatus, "APPROVED");
-                });
+        assertEquals(expectedStatus, actualStatus, "APPROVED");
     }
 
 
@@ -57,15 +54,10 @@ public class PaymentTest {
         PaymentByCard paymentByCard = dashboardPage.openBuyPage();
         Card declinedCard = DataHelper.getDeclinedCard();
         paymentByCard.inputData(declinedCard);
+        paymentByCard.waitNotificationFailure();
         String actualStatus = SQLHelper.getLatestPaymentStatus();
         String expectedStatus = "DECLINED"; // Ожидаемый статус
-        assertAll(
-                () -> assertDoesNotThrow(paymentByCard::waitNotificationFailure),
-                () -> {
-                    assertEquals(expectedStatus, actualStatus, "DECLINED");
-                });
-
-
+        assertEquals(expectedStatus, actualStatus, "DECLINED");
     }
 
     @Test

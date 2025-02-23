@@ -17,11 +17,9 @@ public class PaymentByCard {
     private final SelenideElement approvedOperation = $(byText("Операция одобрена Банком.")).parent().$("[class=\"notification__content\"]");
     private final SelenideElement failureOperation = $(byText("Ошибка! Банк отказал в проведении операции.")).parent().$("[class=\"notification__content\"]");
 
-    private final SelenideElement emptyCardNumber = $(byText("Неверный формат"));
-    private final SelenideElement emptyCardMonth = $(byText("Неверный формат"));
-    private final SelenideElement emptyCardYear = $(byText("Неверный формат"));
+
     private final SelenideElement emptyCardHolder = $(byText("Поле обязательно для заполнения"));
-    private final SelenideElement emptyCardCvc = $(byText("Неверный формат"));
+    private final SelenideElement errorFormat = $(byText("Неверный формат"));
     private final SelenideElement cardExpired = $(byText("Истёк срок действия карты"));
     private final SelenideElement expirationDate = $(byText("Неверно указан срок действия карты"));
 
@@ -41,47 +39,49 @@ public class PaymentByCard {
         continueButton.click();
     }
 
-    public void  waitForNotification(SelenideElement notification) {
-        notification.shouldBe(visible, Duration.ofSeconds(15));
-    }
 
-    public  void waitNotificationApproved() {
-        waitForNotification(approvedOperation);
+    public void waitNotificationApproved() {
+        approvedOperation.shouldBe(visible, Duration.ofSeconds(15));
 
     }
 
     public void waitNotificationFailure() {
-         waitForNotification( failureOperation);
+        failureOperation.shouldBe(visible, Duration.ofSeconds(15));
 
     }
-    public void incorrectCardFormat(){
-        waitForNotification(emptyCardNumber);
+
+    public void incorrectCardFormat() {
+        errorFormat.shouldBe(visible);
 
     }
-    public void incorrectCardMonth(){
-        waitForNotification(emptyCardMonth);
+
+    public void incorrectCardMonth() {
+        errorFormat.shouldBe(visible);
     }
-    public void incorrectCardYear(){
-        waitForNotification(emptyCardYear);
+
+    public void incorrectCardYear() {
+        errorFormat.shouldBe(visible);
     }
-    public void incorrectCardHolder(){
-        waitForNotification(emptyCardHolder);
+
+    public void incorrectCardHolder() {
+        emptyCardHolder.shouldBe(visible);
     }
-    public void incorrectCardCvc(){
-        waitForNotification(emptyCardCvc);
+
+    public void incorrectCardCvc() {
+        errorFormat.shouldBe(visible);
     }
-    public void cardExpired(){
-        waitForNotification(cardExpired);
+
+    public void cardExpired() {
+        cardExpired.shouldBe(visible);
     }
-    public void cardExpirationDate(){
-        waitForNotification(expirationDate);
+
+    public void cardExpirationDate() {
+        expirationDate.shouldBe(visible);
     }
-    public void emptyCard(){
-        waitForNotification(emptyCardNumber);
-        waitForNotification(emptyCardMonth);
-        waitForNotification(emptyCardYear);
-        waitForNotification(emptyCardHolder);
-        waitForNotification(emptyCardCvc);
+
+    public void emptyCard() {
+        emptyCardHolder.shouldBe(visible);
+        errorFormat.shouldBe(visible);
 
 
     }
