@@ -35,11 +35,11 @@
 
 * Для MySQL
 ```
-java -jar./artifacts/aqa-shop.jar -P:jdbc.url=jdbc:mysql://localhost:3306/db
+java "-Dspring.datasource.url=jdbc:mysql://localhost:3306/app" -jar artifacts/aqa-shop.jar
 ```
 * Для PostgreSQL
 ```
-java -jar./artifacts/aqa-shop.jar -P:jdbc.url=jdbc:postgres://localhost:5432/db
+java "-Dspring.datasource.url=jdbc:postgresql://localhost:5432/db" -jar artifacts/aqa-shop.jar
 ```
 * Остановка прилежения осуществляется сочитанием `Ctrl + c`
 
@@ -47,11 +47,11 @@ java -jar./artifacts/aqa-shop.jar -P:jdbc.url=jdbc:postgres://localhost:5432/db
 Запускаем тесты в терминале для MySQL в терминале (Local 3) и для PostgreSQL в терминале (Local 4)
 * Для MySQL:
    ```
-   ./gradlew clean test "-Ddb.url=jdbc:mysql://localhost:3306/db"
+  ./gradlew clean test "-Ddb.url=jdbc:mysql://localhost:3306/app"
    ```
 *  Для PostgreSQL:
    ```
-   ./gradlew clean test "-Ddb.url=jdbc:postgres://localhost:5432/db"
+   ./gradlew clean test "-Ddb.url=jdbc:postgresql://localhost:5432/db"
    ```
 ## Формирование отчетности в системе allure
 
