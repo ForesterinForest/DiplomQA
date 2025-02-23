@@ -8,7 +8,7 @@ import java.util.Locale;
 public class DataHelper {
     private static final Faker faker = new Faker();
     private static final Faker faker1 = new Faker(new Locale("ru_RU"));
-//    private static final Faker faker2 = new Faker();
+
 
 
 
